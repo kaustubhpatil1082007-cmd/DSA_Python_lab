@@ -109,7 +109,7 @@ def lab1():
 
     for n in sizes["subset count"]:
         a = list(range(n))
-        results.append(("subset count", n, measure(lambda: subset_count(a), 3)))
+        results.append(("subset count", n, measure(lambda: subset_count(a), 5)))
 
     with open("lab1_results.csv", "w", newline="") as f:
         writer = csv.writer(f)
