@@ -1,8 +1,5 @@
-# DSA with Python - Algorithm Analysis Labs
-
+# DSA in Python - Assignment 2 - Lab Work 
 This repository contains the two lab assignments, separated into two Python files.
-
-The Python code is kept in the same simple, student-style approach as the original combined file. The algorithms and function implementations have not been rewritten into a different style.
 
 ## Files
 
