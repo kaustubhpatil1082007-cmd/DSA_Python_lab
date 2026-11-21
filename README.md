@@ -3,8 +3,8 @@ This repository contains the two lab assignments, separated into two Python file
 
 ## Files
 
-- `lab1.py` - Lab 1: Benchmarking Algorithmic Growth Rates
-- `lab2.py` - Lab 2: Prefix Averages
+- `lab1_benchmarking.py` - Lab 1: Benchmarking Algorithmic Growth Rates
+- `lab2_prefix_averages.py` - Lab 2: Prefix Averages
 - `requirements.txt` - plotting dependency
 
 ## Run
