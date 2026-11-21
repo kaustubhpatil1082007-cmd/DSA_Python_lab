@@ -104,4 +104,98 @@ After running the scripts, the following files are created:
 - `lab2_results.csv`
 - `lab2_plot.png`
 
-Keep these generated files in the repository when submitting so that the experimental timing data and plots are available alongside the source code.
+## Lab 1: Actual Experimental Observations
+
+The experimental results broadly agree with the theoretical time complexities of the implemented algorithms.
+
+### Measured Results
+
+| Algorithm | Input size (n) | Initial time | Final time | Observed behaviour |
+|---|---:|---:|---:|---|
+| List indexing | 1,000–500,000 | 0.00000060 s | 0.00000030 s | Nearly constant |
+| Binary search | 1,000–500,000 | 0.00000180 s | 0.00000280 s | Very slow increase |
+| Linear search | 1,000–20,000 | 0.00004530 s | 0.00067820 s | Approximately linear |
+| Merge sort | 500–8,000 | 0.000693 s | 0.019409 s | Consistent with n log n |
+| Pair counter | 100–2,000 | 0.000139 s | 0.069071 s | Rapid quadratic growth |
+| Subset enumeration | 4–16 | 0.00000780 s | 0.086779 s | Rapid exponential growth |
+
+### Discussion of Results
+
+- **List indexing – O(1):** Execution time remained nearly constant even when the input size increased from 1,000 to 500,000.
+- **Binary search – O(log n):** Execution time increased only slightly because the search interval is approximately halved at every iteration.
+- **Linear search – O(n):** Execution time increased approximately in proportion to the input size. Since the search target was absent, the entire list was scanned.
+- **Merge sort – O(n log n):** Execution time increased with input size, following the expected n log n growth pattern.
+- **Pair counter – O(n²):** Execution time increased rapidly because the number of pair comparisons grows quadratically.
+- **Subset enumeration – O(n · 2ⁿ):** Execution time increased extremely rapidly because the number of possible subsets doubles whenever n increases by one, with additional work required to construct each subset.
+
+### Experimental Limitations and Interpretation
+
+The experimental results generally follow the expected theoretical complexity trends. However, measured execution times are affected by several factors:
+
+1. **Constant factors:** Different operations have different execution costs, even when they have similar asymptotic complexity.
+2. **Lower-order terms:** These can influence execution time, particularly for smaller input sizes.
+3. **Python interpreter overhead:** Function calls, loops and object handling contribute additional execution time.
+4. **Memory allocation:** Algorithms such as merge sort create temporary lists, which introduce additional overhead.
+5. **Timer resolution:** Very short operations, such as list indexing, are difficult to measure accurately.
+
+Therefore, the measured execution times may not follow theoretical growth functions perfectly. Nevertheless, the overall experimental trends support the expected complexity classes.
+
+---
+
+## Lab 2: Actual Experimental Results
+
+The following table presents the measured execution times of both prefix-average implementations. The values have been converted from seconds to milliseconds.
+
+### Measured Timing Results
+
+| Input size (n) | prefix_average1 – O(n²) (ms) | prefix_average2 – O(n) (ms) |
+|---:|---:|---:|
+| 100 | 0.241 | 0.015 |
+| 500 | 5.314 | 0.076 |
+| 1,000 | 26.906 | 0.197 |
+| 2,000 | 127.240 | 0.454 |
+| 4,000 | 669.088 | 0.600 |
+| 8,000 | 1,873.111 | 0.894 |
+
+### Discussion of Experimental Results
+
+The experimental measurements clearly demonstrate the performance difference between the two implementations.
+
+- The quadratic implementation, `prefix_average1`, becomes increasingly slower as the input size increases.
+- The linear implementation, `prefix_average2`, exhibits significantly slower growth because it maintains a running sum instead of repeatedly recalculating previous sums.
+- At n = 100, the linear implementation is already approximately 15.6 times faster.
+- At n = 1,000, it is approximately 136.8 times faster.
+- At n = 8,000, it is approximately 2,095.9 times faster.
+
+The linear implementation was already noticeably faster at the smallest tested input size (n = 100). Its performance advantage becomes increasingly significant as the input size grows.
+
+These results experimentally support the theoretical conclusion that O(n) is considerably more efficient than O(n²) for calculating prefix averages.
+
+### Numerical Precision
+
+Both implementations calculate the same mathematical prefix averages. However, Python floating-point numbers represent many decimal values approximately, which can introduce small rounding errors during arithmetic operations.
+
+The two implementations may accumulate floating-point errors in slightly different orders. Therefore, their outputs are compared using `math.isclose()` instead of requiring exact equality.
+
+For ordinary input sizes and values, any differences are expected to be very small.
+
+---
+
+## Experimental Setup
+
+The experiments were conducted using the following environment and methodology:
+
+| Parameter | Description |
+|---|---|
+| Programming language | Python 3.13.7 |
+| Operating system | Windows 11 |
+| Processor | Intel Core i5-1235U |
+| Timing function | `time.perf_counter()` |
+| Measurement method | Median execution time |
+| Repeated measurements | Multiple trials |
+| Plotting library | Matplotlib |
+| Input generation | Outside the timed section |
+| Experimental data | Stored in CSV files |
+
+The same measurement approach was used to compare the algorithms. Input generation and validation were performed outside the timed sections to avoid affecting the measured execution times.
+
